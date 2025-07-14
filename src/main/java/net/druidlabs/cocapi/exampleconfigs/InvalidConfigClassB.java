@@ -20,6 +20,6 @@ public final class InvalidConfigClassB {
     }
 
     @ApiToken
-    private static String apiToken = "sample api key";
+    private static String woofWoof = "sample api key";
 
 }

@@ -18,6 +18,6 @@ public final class ValidConfigClass {
     }
 
     @ApiToken
-    public static String apiToken = "sample api key";
+    public static String foo123 = "sample api key";
 
 }

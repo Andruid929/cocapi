@@ -1,13 +1,18 @@
 package net.druidlabs.cocapi.info;
 
 import net.druidlabs.cocapi.annotation.ApiToken;
+import net.druidlabs.cocapi.api.Constants;
 import net.druidlabs.cocapi.exampleconfigs.InvalidConfigClassA;
 import net.druidlabs.cocapi.exampleconfigs.InvalidConfigClassB;
 import net.druidlabs.cocapi.exampleconfigs.ValidConfigClass;
 import org.jetbrains.annotations.NotNull;
 
+import javax.net.ssl.HttpsURLConnection;
+import java.io.IOException;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 /**
  * This is the class that declares the logic for sending requests and receiving responses.
@@ -27,11 +32,11 @@ import java.lang.reflect.Modifier;
  *
  * <p>Here's what the field should look like
  * <blockquote><pre>
- *     {@code @}{@link ApiToken}
+ *     &#64;ApiToken
  *     public static final String MY_API_TOKEN = "api.token.here";
  * </pre></blockquote>
  *
- * <p>Any issues with the field annotated as the API token will come back to bite you
+ * <p>Any issues with the field annotated as the API token will come back to bite you,
  * so make sure the field is not empty, null and accurately returns your API token.
  * <p>If you have multiple fields annotate with {@code ApiToken},
  * the program will only take the first one it finds and stop there.
@@ -54,9 +59,9 @@ import java.lang.reflect.Modifier;
 
 public class Info {
 
-    private static String API_TOKEN;
+    protected static String API_TOKEN;
 
-    private Info() {
+    protected Info() {
     }
 
     /**
@@ -97,8 +102,36 @@ public class Info {
             return false;
 
         } catch (NullPointerException e) {
-            System.err.println("Cannot find API token field in file, make sure the field is static");
+            System.err.println("Cannot find API token field in " + configClassName + ", make sure the field is static");
             return false;
+        }
+    }
+
+    @NotNull
+    protected static HttpsURLConnection apiConnection(@NotNull String resourceUrl) throws IOException {
+        final String END_POINT = Constants.BASE_URL + resourceUrl;
+
+        HttpsURLConnection connection;
+        try {
+            URL endPointUrl = new URI(END_POINT).toURL();
+
+            connection = (HttpsURLConnection) endPointUrl.openConnection();
+            connection.setRequestMethod("GET");
+
+            if (API_TOKEN == null) {
+                throw new NullPointerException("API token is null");
+            }
+            connection.setRequestProperty("Authorization", "Bearer " + API_TOKEN);
+
+            return connection;
+
+        } catch (URISyntaxException e) {
+            System.err.println("Encountered error while parsing endpoint, check for issues:");
+            System.err.println(e.getMessage());
+            throw new RuntimeException();
+        } catch (NullPointerException e) {
+            System.err.println(e.getMessage() + ", is configuration class set?");
+            throw new RuntimeException();
         }
     }
 }

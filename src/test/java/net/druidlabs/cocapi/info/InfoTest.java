@@ -35,7 +35,7 @@ public class InfoTest {
     /**
      * This test uses the first {@link InvalidConfigClassA invalid class} which also has a public String field annotated with
      * {@link ApiToken} but this one is not static and as a result, cannot be detected.
-     * <p>A {@code NullPointerException} is thrown when {@link Field#get(Object)} tries to get
+     * <p>A {@link NullPointerException} is thrown when {@link Field#get(Object)} tries to get
      * the token field, which is set to be an instance field, on a null param: {@code field.get(null);}.
      *
      * <p>The exception is caught, and the method returns false;
