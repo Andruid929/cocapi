@@ -10,9 +10,12 @@ import java.io.InputStream;
 
 public final class PlayerInfo extends Info {
 
+    public static final String FAILED_DATA = "NULL_DATA";
+
     private PlayerInfo() {
     }
 
+    @NotNull
     @Contract(pure = true)
     public static String getPlayerInfo(@NotNull String playerId) {
         if (playerId.isBlank() || (playerId.length() != 9)) {
@@ -33,7 +36,8 @@ public final class PlayerInfo extends Info {
             return InputStreamCollector.collectStreamData(dataStream);
 
         } catch (RuntimeException e) {
-            return null;
+            System.err.println(e.getCause().getMessage());
+            return FAILED_DATA;
 
         } catch (IOException e) {
             System.err.println("Connection to API encountered an error:");
@@ -43,7 +47,7 @@ public final class PlayerInfo extends Info {
                 System.err.println(InputStreamCollector.collectStreamData(connection.getErrorStream()));
             }
 
-            return null;
+            return FAILED_DATA;
 
         } finally {
             if (connection != null) {
