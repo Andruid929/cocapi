@@ -9,9 +9,9 @@ import java.lang.annotation.Target;
  * This annotation marks a field as an API token.
  *
  * @author Andrew Jones
- * @since 1.0
  * @version 1.0
- * */
+ * @since 1.0
+ */
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

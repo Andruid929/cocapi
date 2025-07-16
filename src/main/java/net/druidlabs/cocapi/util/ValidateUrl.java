@@ -4,9 +4,9 @@ package net.druidlabs.cocapi.util;
  * Utility class for validating or correcting URLs.
  *
  * @author Andrew Jones
- * @since 1.0
  * @version 1.0
- * */
+ * @since 1.0
+ */
 
 public final class ValidateUrl {
 
@@ -18,7 +18,7 @@ public final class ValidateUrl {
      *
      * @param url the URL to be trimmed.
      * @return {@code url} without any leading or trailing slashes.
-     * */
+     */
 
     public static String trimSlashes(String url) {
         String leading = trimLeadingSlash(url);
@@ -31,7 +31,7 @@ public final class ValidateUrl {
      *
      * @param url the URL to be trimmed.
      * @return {@code url} without trailing slashes.
-     * */
+     */
 
     public static String trimTrailingSlash(String url) {
         if (url.endsWith("/")) {
@@ -47,7 +47,7 @@ public final class ValidateUrl {
      *
      * @param url the URL to be trimmed.
      * @return {@code url} without any leading slashes.
-     * */
+     */
 
     public static String trimLeadingSlash(String url) {
         if (url.startsWith("/")) {

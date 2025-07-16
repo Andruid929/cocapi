@@ -9,11 +9,11 @@ import net.druidlabs.cocapi.annotation.ApiToken;
  * <p>However, the field has to be static to be detected.
  *
  * @author Andrew Jones
- * @since 1.0
  * @version 1.0
  * @see ValidConfigClass
  * @see InvalidConfigClassB
- * */
+ * @since 1.0
+ */
 
 public final class InvalidConfigClassA {
 

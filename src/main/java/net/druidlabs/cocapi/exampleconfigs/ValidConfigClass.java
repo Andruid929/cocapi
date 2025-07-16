@@ -8,9 +8,9 @@ import net.druidlabs.cocapi.annotation.ApiToken;
  * it is annotated with {@link ApiToken}.
  *
  * @author Andrew Jones
- * @since 1.0
  * @version 1.0
- * */
+ * @since 1.0
+ */
 
 public final class ValidConfigClass {
 

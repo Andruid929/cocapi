@@ -81,7 +81,7 @@ public class Info {
      * @return {@code true} if any public static String field annotated with {@code @ApiToken} is found.
      * So make sure this method this your API token or errors follow.
      * <p>{@code false} if the API token field is private, not static or doesn't exist entirely.
-     * */
+     */
 
     public static boolean setConfigurationClass(@NotNull Class<?> configurationClass) {
         String configClassName = configurationClass.getName().concat(".java");
@@ -118,7 +118,7 @@ public class Info {
      *
      * @param inputStream the stream to collect data from.
      * @return the data in the {@code inputStream} or {@link #NULL_STREAM null input stream} if the {@code inputStream} is null;
-     * */
+     */
 
     protected static String collectStreamData(InputStream inputStream) {
         if (inputStream == null) {
@@ -150,10 +150,10 @@ public class Info {
      * See {@link Info here} to learn how to set one up.
      *
      * @param resourceUrl the url to the resource required.
-     *                   Trailing and leading slashes will automatically be removed.
+     *                    Trailing and leading slashes will automatically be removed.
      * @return a connection to the API endpoint specified complete with an HTTPS header containing the authorisation JSON token.
      * @throws IOException if any I/O error occurs during the connection.
-     * */
+     */
 
     @NotNull
     protected static HttpsURLConnection apiConnection(@NotNull String resourceUrl) throws IOException {

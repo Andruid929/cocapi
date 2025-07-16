@@ -13,15 +13,15 @@ import java.io.IOException;
  *
  * @author Andrew Jones
  * @version 1.0
- * @since 1.0
  * @see net.druidlabs.cocapi.info.Info
- * */
+ * @since 1.0
+ */
 
 public final class PlayerInfo extends Info {
 
     /**
      * The default value that is returned when there is an issue with the API connection.
-     * */
+     */
 
     public static final String FAILED_DATA = "NULL_DATA";
 
@@ -37,7 +37,7 @@ public final class PlayerInfo extends Info {
      * @return player info as JSON String or {@link #FAILED_DATA NULL_DATA}
      * if anything goes wrong while getting the response.
      * @throws IllegalArgumentException if the {@code playerId} is not 9 characters long.
-     * */
+     */
 
     @NotNull
     @Contract(pure = true)
