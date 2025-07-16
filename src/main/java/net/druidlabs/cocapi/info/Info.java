@@ -5,25 +5,29 @@ import net.druidlabs.cocapi.api.Constants;
 import net.druidlabs.cocapi.exampleconfigs.InvalidConfigClassA;
 import net.druidlabs.cocapi.exampleconfigs.InvalidConfigClassB;
 import net.druidlabs.cocapi.exampleconfigs.ValidConfigClass;
+import net.druidlabs.cocapi.util.ValidateUrl;
 import org.jetbrains.annotations.NotNull;
 
 import javax.net.ssl.HttpsURLConnection;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
 /**
- * This is the class that declares the logic for sending requests and receiving responses.
+ * This is the class that declares the logic for sending requests.
  * <p>Clash of clans API requires a JSON token to validate requests.
  * Visit <a href="https://developer.clashofclans.com/">Clash of Clans API</a> to learn how to acquire a token for yourself.
  *
  * <p>If you already have an API token, proceed with:
  * <ol>
  *     <li>In your project folder, create a public Java class with any name you want.</li>
- *     <li>Create a public static String field with any name of your choosing.</li>
- *     <p>This field can be final or not but MUST be public and static
+ *     <li>Create a {@code public static String} field with any name of your choosing.</li>
+ *     <p>This field can be {@code final} or not but MUST be {@code public} and {@code static}
  *     otherwise it will not be detected.
  *     <li>Assign this field to your API token.</li>
  *     <li>Annotate this field with {@link ApiToken}.</li>
@@ -60,6 +64,8 @@ import java.net.URL;
 public class Info {
 
     protected static String API_TOKEN;
+
+    public static final String NULL_STREAM = "Null input stream";
 
     protected Info() {
     }
@@ -107,9 +113,51 @@ public class Info {
         }
     }
 
+    /**
+     * Collect information from an API connection stream.
+     *
+     * @param inputStream the stream to collect data from.
+     * @return the data in the {@code inputStream} or {@link #NULL_STREAM null input stream} if the {@code inputStream} is null;
+     * */
+
+    protected static String collectStreamData(InputStream inputStream) {
+        if (inputStream == null) {
+            System.err.println("Null input stream, check your endpoint configuration");
+            return NULL_STREAM;
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        try (InputStreamReader isr = new InputStreamReader(inputStream);
+             BufferedReader reader = new BufferedReader(isr)) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+
+        } catch (IOException e) {
+            System.err.println("Encountered error reading stream data:");
+            System.err.println(e.getMessage());
+        }
+
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Establish a {@code GET} request connection to the specified endpoint.
+     * <p>This does require you to have an API token set in a configuration class.
+     * See {@link Info here} to learn how to set one up.
+     *
+     * @param resourceUrl the url to the resource required.
+     *                   Trailing and leading slashes will automatically be removed.
+     * @return a connection to the API endpoint specified complete with an HTTPS header containing the authorisation JSON token.
+     * @throws IOException if any I/O error occurs during the connection.
+     * */
+
     @NotNull
     protected static HttpsURLConnection apiConnection(@NotNull String resourceUrl) throws IOException {
-        final String END_POINT = Constants.BASE_URL + resourceUrl;
+        final String END_POINT = Constants.BASE_URL + ValidateUrl.trimSlashes(resourceUrl);
 
         HttpsURLConnection connection;
         try {

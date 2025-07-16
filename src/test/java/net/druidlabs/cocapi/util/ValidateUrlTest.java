@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UrlValidateTest {
+class ValidateUrlTest {
 
     @Test
     void testTrimming() {
-        assertEquals("take/one", UrlValidate.trimSlashes("/take/one/"));
+        assertEquals("take/one", ValidateUrl.trimSlashes("/take/one/"));
     }
 
 }
