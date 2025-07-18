@@ -4,15 +4,15 @@ This is a library for making simple Clash of clans API **GET** requests.
 
 ## Getting started
 
-- Go to [GitHub releases](https://github.com/Andruid929/cocapi/release)
-- Download the jar (Sources are optional but recommended)
+- Go to [GitHub releases](https://github.com/Andruid929/cocapi/releases)
+- Download the jar (Sources are optional but recommended for documentation)
 - Add the jar as a dependency to your project
 
 ### Note: Clash of clans API requires a JSON token to validate requests.
 
 So, either
 
-Visit [Clash of Clans API](https://developer.clashofclans.com/) to learn how to acquire a token for yourself.
+Visit [Clash of Clans API](https://developer.clashofclans.com/#/getting-started) to learn how to acquire a token for yourself.
 
 OR
 
