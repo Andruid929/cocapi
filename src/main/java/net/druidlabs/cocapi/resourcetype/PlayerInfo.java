@@ -1,5 +1,6 @@
-package net.druidlabs.cocapi.info;
+package net.druidlabs.cocapi.resourcetype;
 
+import net.druidlabs.cocapi.util.JsonCollector;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,7 +14,7 @@ import java.io.IOException;
  *
  * @author Andrew Jones
  * @version 1.0
- * @see net.druidlabs.cocapi.info.Info
+ * @see net.druidlabs.cocapi.resourcetype.Info
  * @since 1.0
  */
 
@@ -30,7 +31,7 @@ public final class PlayerInfo extends Info {
 
     /**
      * Connect to the server and request a player's information.
-     * <p>Before printing the player info, this method will print out
+     * <p>Before printing the player information, this method will print out
      * a response code.
      *
      * @param playerId player's unique ID without the #.
@@ -57,7 +58,7 @@ public final class PlayerInfo extends Info {
 
             System.out.println(connection.getResponseCode());
 
-            return collectStreamData(connection.getInputStream());
+            return JsonCollector.getJsonString(connection.getInputStream());
 
         } catch (RuntimeException e) {
             System.err.println(e.getCause().getMessage());
@@ -68,7 +69,7 @@ public final class PlayerInfo extends Info {
             System.err.println(e.getMessage());
 
             if ((connection != null)) {
-                System.err.println(collectStreamData(connection.getErrorStream()));
+                System.err.println(JsonCollector.getJsonString(connection.getErrorStream()));
             }
 
             return FAILED_DATA;

@@ -1,5 +1,7 @@
 package net.druidlabs.cocapi.util;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Utility class for validating or correcting URLs.
  *
@@ -20,7 +22,7 @@ public final class ValidateUrl {
      * @return {@code url} without any leading or trailing slashes.
      */
 
-    public static String trimSlashes(String url) {
+    public static @NotNull String trimSlashes(@NotNull String url) {
         String leading = trimLeadingSlash(url);
 
         return trimTrailingSlash(leading);
@@ -33,7 +35,7 @@ public final class ValidateUrl {
      * @return {@code url} without trailing slashes.
      */
 
-    public static String trimTrailingSlash(String url) {
+    public static @NotNull String trimTrailingSlash(@NotNull String url) {
         if (url.endsWith("/")) {
 
             return url.substring(0, url.length() - 1);
@@ -49,7 +51,7 @@ public final class ValidateUrl {
      * @return {@code url} without any leading slashes.
      */
 
-    public static String trimLeadingSlash(String url) {
+    public static @NotNull String trimLeadingSlash(@NotNull String url) {
         if (url.startsWith("/")) {
 
             return url.substring(1);

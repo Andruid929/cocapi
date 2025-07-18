@@ -1,4 +1,4 @@
-package net.druidlabs.cocapi.info;
+package net.druidlabs.cocapi.resourcetype;
 
 import net.druidlabs.cocapi.annotation.ApiToken;
 import net.druidlabs.cocapi.api.Constants;
@@ -9,10 +9,7 @@ import net.druidlabs.cocapi.util.ValidateUrl;
 import org.jetbrains.annotations.NotNull;
 
 import javax.net.ssl.HttpsURLConnection;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -65,8 +62,6 @@ public class Info {
 
     protected static String API_TOKEN;
 
-    public static final String NULL_STREAM = "Null input stream";
-
     protected Info() {
     }
 
@@ -111,37 +106,6 @@ public class Info {
             System.err.println("Cannot find API token field in " + configClassName + ", make sure the field is static");
             return false;
         }
-    }
-
-    /**
-     * Collect information from an API connection stream.
-     *
-     * @param inputStream the stream to collect data from.
-     * @return the data in the {@code inputStream} or {@link #NULL_STREAM null input stream} if the {@code inputStream} is null;
-     */
-
-    protected static String collectStreamData(InputStream inputStream) {
-        if (inputStream == null) {
-            System.err.println("Null input stream, check your endpoint configuration");
-            return NULL_STREAM;
-        }
-
-        StringBuilder stringBuilder = new StringBuilder();
-
-        try (InputStreamReader isr = new InputStreamReader(inputStream);
-             BufferedReader reader = new BufferedReader(isr)) {
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-
-        } catch (IOException e) {
-            System.err.println("Encountered error reading stream data:");
-            System.err.println(e.getMessage());
-        }
-
-        return stringBuilder.toString();
     }
 
     /**

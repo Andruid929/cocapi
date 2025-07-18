@@ -1,4 +1,4 @@
-package net.druidlabs.cocapi.info;
+package net.druidlabs.cocapi.resourcetype;
 
 import net.druidlabs.cocapi.annotation.ApiToken;
 import net.druidlabs.cocapi.exampleconfigs.InvalidConfigClassA;
