@@ -1,9 +1,9 @@
-package net.druidlabs.cocapi.resourcetype;
+package io.github.andruid929.cocapi.resourcetype;
 
-import net.druidlabs.cocapi.annotation.ApiToken;
-import net.druidlabs.cocapi.exampleconfigs.InvalidConfigClassA;
-import net.druidlabs.cocapi.exampleconfigs.InvalidConfigClassB;
-import net.druidlabs.cocapi.exampleconfigs.ValidConfigClass;
+import io.github.andruid929.cocapi.annotation.ApiToken;
+import io.github.andruid929.cocapi.exampleconfigs.InvalidConfigClassA;
+import io.github.andruid929.cocapi.exampleconfigs.InvalidConfigClassB;
+import io.github.andruid929.cocapi.exampleconfigs.ValidConfigClass;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;

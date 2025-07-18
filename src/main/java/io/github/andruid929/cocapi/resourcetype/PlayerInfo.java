@@ -1,6 +1,6 @@
-package net.druidlabs.cocapi.resourcetype;
+package io.github.andruid929.cocapi.resourcetype;
 
-import net.druidlabs.cocapi.util.JsonCollector;
+import io.github.andruid929.cocapi.util.JsonCollector;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,7 +14,7 @@ import java.io.IOException;
  *
  * @author Andrew Jones
  * @version 1.0
- * @see net.druidlabs.cocapi.resourcetype.Info
+ * @see Info
  * @since 1.0
  */
 

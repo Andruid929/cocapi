@@ -1,11 +1,11 @@
-package net.druidlabs.cocapi.resourcetype;
+package io.github.andruid929.cocapi.resourcetype;
 
-import net.druidlabs.cocapi.annotation.ApiToken;
-import net.druidlabs.cocapi.api.Constants;
-import net.druidlabs.cocapi.exampleconfigs.InvalidConfigClassA;
-import net.druidlabs.cocapi.exampleconfigs.InvalidConfigClassB;
-import net.druidlabs.cocapi.exampleconfigs.ValidConfigClass;
-import net.druidlabs.cocapi.util.ValidateUrl;
+import io.github.andruid929.cocapi.annotation.ApiToken;
+import io.github.andruid929.cocapi.api.Constants;
+import io.github.andruid929.cocapi.exampleconfigs.InvalidConfigClassA;
+import io.github.andruid929.cocapi.exampleconfigs.InvalidConfigClassB;
+import io.github.andruid929.cocapi.exampleconfigs.ValidConfigClass;
+import io.github.andruid929.cocapi.util.ValidateUrl;
 import org.jetbrains.annotations.NotNull;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -23,12 +23,12 @@ import java.net.URL;
  * <p>If you already have an API token, proceed with:
  * <ol>
  *     <li>In your project folder, create a public Java class with any name you want.</li>
- *     <li>Create a {@code public static String} field with any name of your choosing.</li>
- *     <p>This field can be {@code final} or not but MUST be {@code public} and {@code static}
- *     otherwise it will not be detected.
+ *     <li>Create a {@code public static String} field with any name of your choosing.
+ *     This field can be {@code final} or not but MUST be {@code public} and {@code static}
+ *     otherwise it will not be detected.</li>
  *     <li>Assign this field to your API token.</li>
- *     <li>Annotate this field with {@link ApiToken}.</li>
- *     <p>This annotation marks the field as the API token which is required for requests.
+ *     <li>Annotate this field with {@link ApiToken}.
+ *     This annotation marks the field as the API token which is required for requests.</li>
  * </ol>
  *
  * <p>Here's what the field should look like
@@ -74,7 +74,7 @@ public class Info {
      *
      * @param configurationClass the class file of your configuration class.
      * @return {@code true} if any public static String field annotated with {@code @ApiToken} is found.
-     * So make sure this method this your API token or errors follow.
+     * So make sure this method is your API token or errors follow.
      * <p>{@code false} if the API token field is private, not static or doesn't exist entirely.
      */
 

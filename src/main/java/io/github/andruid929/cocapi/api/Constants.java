@@ -1,4 +1,4 @@
-package net.druidlabs.cocapi.api;
+package io.github.andruid929.cocapi.api;
 
 /**
  * Utility class to hold program specifics to be used.

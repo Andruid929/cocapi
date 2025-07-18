@@ -23,7 +23,7 @@ If you already have an API token, proceed with:
    be ``public`` and ``static``
    otherwise it will not be detected.
 3. Assign your API token to this field.
-4. Annotate this field with [@ApiToken](src/main/java/net/druidlabs/cocapi/annotation/ApiToken.java). This annotation
+4. Annotate this field with [@ApiToken](src/main/java/io/github/andruid929/cocapi/annotation/ApiToken.java). This annotation
    marks the field as the API token which is required for
    requests
 

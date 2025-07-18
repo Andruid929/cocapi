@@ -1,6 +1,6 @@
-package net.druidlabs.cocapi.exampleconfigs;
+package io.github.andruid929.cocapi.exampleconfigs;
 
-import net.druidlabs.cocapi.annotation.ApiToken;
+import io.github.andruid929.cocapi.annotation.ApiToken;
 
 /**
  * This class shows an invalid way to create a configuration class.

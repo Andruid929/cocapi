@@ -1,6 +1,6 @@
-package net.druidlabs.cocapi.information;
+package io.github.andruid929.cocapi.information;
 
-import net.druidlabs.cocapi.util.JsonCollector;
+import io.github.andruid929.cocapi.util.JsonCollector;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

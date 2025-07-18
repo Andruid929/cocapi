@@ -1,5 +1,3 @@
 .idea/
 .vscode/
 target/
-
-src/main/java/net/druidlabs/cocapi/ApiConfig.java

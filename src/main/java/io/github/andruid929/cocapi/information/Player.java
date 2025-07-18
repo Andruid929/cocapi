@@ -1,7 +1,13 @@
-package net.druidlabs.cocapi.information;
+package io.github.andruid929.cocapi.information;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import io.github.andruid929.cocapi.attributes.Achievement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class containing all information about a specific player.
@@ -44,6 +50,7 @@ public final class Player {
         if (getWithoutHashTag) {
             return tag.substring(1);
         }
+
 
         return tag;
     }

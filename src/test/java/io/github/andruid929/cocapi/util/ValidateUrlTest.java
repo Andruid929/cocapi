@@ -1,4 +1,4 @@
-package net.druidlabs.cocapi.util;
+package io.github.andruid929.cocapi.util;
 
 import org.junit.jupiter.api.Test;
 

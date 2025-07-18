@@ -1,4 +1,4 @@
-package net.druidlabs.cocapi.annotation;
+package io.github.andruid929.cocapi.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
