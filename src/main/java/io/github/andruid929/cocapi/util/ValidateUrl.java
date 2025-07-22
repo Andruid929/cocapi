@@ -12,6 +12,10 @@ import org.jetbrains.annotations.NotNull;
 
 public final class ValidateUrl {
 
+    /**
+     * Utility classes cannot be instantiated.
+     */
+
     private ValidateUrl() {
     }
 

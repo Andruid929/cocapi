@@ -14,8 +14,16 @@ import io.github.andruid929.cocapi.annotation.ApiToken;
 
 public final class ValidConfigClass {
 
+    /**
+     * Utility classes cannot be instantiated.
+     */
+
     private ValidConfigClass() {
     }
+
+    /**
+     * API token, public and static
+     */
 
     @ApiToken
     public static String foo123 = "sample api key";

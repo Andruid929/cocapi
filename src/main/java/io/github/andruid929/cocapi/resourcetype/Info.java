@@ -60,7 +60,15 @@ import java.net.URL;
 
 public class Info {
 
+    /**
+     * JSON token to be used for request validation.
+     */
+
     protected static String API_TOKEN;
+
+    /**
+     * Utility classes cannot be instantiated.
+     */
 
     protected Info() {
     }
@@ -140,9 +148,12 @@ public class Info {
         } catch (URISyntaxException e) {
             System.err.println("Encountered error while parsing endpoint, check for issues:");
             System.err.println(e.getMessage());
+
             throw new RuntimeException();
+
         } catch (NullPointerException e) {
             System.err.println(e.getMessage() + ", is configuration class set?");
+
             throw new RuntimeException();
         }
     }

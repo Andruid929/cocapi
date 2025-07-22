@@ -16,8 +16,16 @@ import io.github.andruid929.cocapi.annotation.ApiToken;
 
 public final class InvalidConfigClassB {
 
+    /**
+     * Utility classes cannot be instantiated.
+     */
+
     private InvalidConfigClassB() {
     }
+
+    /**
+     * API tokens should not be private
+     */
 
     @ApiToken
     private static String woofWoof = "sample api key";

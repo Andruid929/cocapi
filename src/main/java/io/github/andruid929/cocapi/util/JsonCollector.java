@@ -15,11 +15,27 @@ import java.io.*;
 
 public final class JsonCollector {
 
+    /**
+     * Error message when the collector cannot find the specified file.
+     */
+
     public static final String FILE_NOT_FOUND = "File not found";
+
+    /**
+     * Error message when the collector cannot access stream data because the stream is null
+     */
 
     public static final String NULL_STREAM = "Null input stream";
 
+    /**
+     * Error message when the collector cannot read data from the specified source.
+     */
+
     public static final String ERROR_READING_DATA = "Error reading data";
+
+    /**
+     * Utility classes cannot be instantiated.
+     */
 
     private JsonCollector() {
     }

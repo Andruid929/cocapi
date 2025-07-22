@@ -5,16 +5,15 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static io.github.andruid929.cocapi.TestConstants.SAMPLE_PLAYER_INFO_RESPONSE_FILENAME;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PlayerTest {
 
     private final Player player;
 
     {
-        String fileName = "Sample player_info response.json";
-
-        String jsonString = JsonCollector.getJsonString(new File(fileName));
+        String jsonString = JsonCollector.getJsonString(new File(SAMPLE_PLAYER_INFO_RESPONSE_FILENAME));
 
         player = new Player(jsonString);
     }
@@ -87,5 +86,15 @@ class PlayerTest {
     @Test
     void getClanCapitalContributions() {
         assertEquals(232, player.getClanCapitalContributions());
+    }
+
+    @Test
+    void getAchievements() {
+        assertEquals(53, player.getAchievements().length);
+    }
+
+    @Test
+    void getTroops() {
+        assertEquals(19, player.getTroops().length);
     }
 }

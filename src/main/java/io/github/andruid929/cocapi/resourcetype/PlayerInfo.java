@@ -26,6 +26,10 @@ public final class PlayerInfo extends Info {
 
     public static final String FAILED_DATA = "NULL_DATA";
 
+    /**
+     * Utility classes cannot be instantiated.
+     */
+
     private PlayerInfo() {
     }
 
