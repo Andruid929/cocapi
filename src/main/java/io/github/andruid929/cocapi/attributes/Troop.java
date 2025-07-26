@@ -1,6 +1,7 @@
 package io.github.andruid929.cocapi.attributes;
 
 import com.google.gson.JsonObject;
+import io.github.andruid929.cocapi.information.JsonInfoReader;
 
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ import java.util.Objects;
  * @since 1.1.0-beta.2
  */
 
-public final class Troop {
+public final class Troop extends JsonInfoReader {
 
     /**
      * An object containing information about a specific troop.
@@ -30,6 +31,11 @@ public final class Troop {
         this.troop = troop;
     }
 
+    @Override
+    protected JsonObject data() {
+        return troop;
+    }
+
     /**
      * Get the name of the troop.
      *
@@ -37,7 +43,7 @@ public final class Troop {
      */
 
     public String getName() {
-        return troop.get("name").getAsString();
+        return getStringIfPresent("name");
     }
 
     /**
@@ -47,7 +53,7 @@ public final class Troop {
      */
 
     public int getLevel() {
-        return troop.get("level").getAsInt();
+        return getIntIfPresent("level");
     }
 
     /**
@@ -57,7 +63,7 @@ public final class Troop {
      */
 
     public int getMaxLevel() {
-        return troop.get("maxLevel").getAsInt();
+        return getIntIfPresent("maxLevel");
     }
 
     /**
@@ -67,7 +73,7 @@ public final class Troop {
      */
 
     public String getVillage() {
-        return troop.get("village").getAsString();
+        return getStringIfPresent("village");
     }
 
     @Override

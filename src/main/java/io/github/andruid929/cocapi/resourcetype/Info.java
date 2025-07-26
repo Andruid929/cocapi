@@ -141,6 +141,7 @@ public class Info {
             if (API_TOKEN == null) {
                 throw new NullPointerException("API token is null");
             }
+
             connection.setRequestProperty("Authorization", "Bearer " + API_TOKEN);
 
             return connection;

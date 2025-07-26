@@ -1,6 +1,7 @@
 package io.github.andruid929.cocapi.attributes;
 
 import com.google.gson.JsonObject;
+import io.github.andruid929.cocapi.information.JsonInfoReader;
 
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ import java.util.Objects;
  * @since 1.1.0-beta.2
  */
 
-public final class Achievement {
+public final class Achievement extends JsonInfoReader {
 
     /**
      * The achievement as an object.
@@ -30,6 +31,11 @@ public final class Achievement {
         this.achievement = achievement;
     }
 
+    @Override
+    protected JsonObject data() {
+        return achievement;
+    }
+
     /**
      * Get the name of the achievement.
      *
@@ -37,7 +43,7 @@ public final class Achievement {
      */
 
     public String getName() {
-        return achievement.get("name").getAsString();
+        return getStringIfPresent("name");
     }
 
     /**
@@ -47,7 +53,7 @@ public final class Achievement {
      */
 
     public int getStars() {
-        return achievement.get("stars").getAsInt();
+        return getIntIfPresent("stars");
     }
 
     /**
@@ -57,7 +63,7 @@ public final class Achievement {
      */
 
     public int getValue() {
-        return achievement.get("value").getAsInt();
+        return getIntIfPresent("value");
     }
 
     /**
@@ -67,7 +73,7 @@ public final class Achievement {
      */
 
     public int getTarget() {
-        return achievement.get("target").getAsInt();
+        return getIntIfPresent("target");
     }
 
     /**
@@ -77,7 +83,7 @@ public final class Achievement {
      */
 
     public String getInfo() {
-        return achievement.get("info").getAsString();
+        return getStringIfPresent("info");
     }
 
     /**
@@ -87,7 +93,7 @@ public final class Achievement {
      */
 
     public String getCompletionInfo() {
-        return achievement.get("completionInfo").getAsString();
+        return getStringIfPresent("completionInfo");
     }
 
     /**
@@ -97,7 +103,7 @@ public final class Achievement {
      */
 
     public String getVillage() {
-        return achievement.get("village").getAsString();
+        return getStringIfPresent("village");
     }
 
     @Override

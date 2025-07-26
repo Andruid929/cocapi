@@ -2,61 +2,47 @@ package io.github.andruid929.cocapi.information;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import io.github.andruid929.cocapi.attributes.Achievement;
 import io.github.andruid929.cocapi.attributes.Troop;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 /**
  * Class containing all information about a specific player.
  *
  * @author Andrew Jones
- * @version 1.0
+ * @version 2.0
  * @since 1.1.0-alpha.1
+ * @see io.github.andruid929.cocapi.information.JsonInfoReader
  */
 
-public final class Player {
-
-    private final String jsonString;
+public final class Player extends JsonInfoReader {
 
     /**
-     * Create a new instance of and populate fields.
+     * Create a new instance.
      *
      * @param jsonString the player information JSON response as a String.
-     * */
-
-    public Player(String jsonString) {
-        this.jsonString = jsonString;
-    }
-
-    /**
-     * Parses the jsonString.
-     *
-     * @return a code ready component.
      */
 
-    private JsonObject data() {
-        return JsonParser.parseString(jsonString).getAsJsonObject();
+    public Player(String jsonString) {
+        setJsonString(jsonString);
     }
 
     /**
      * Get the player's tag. By default, this method returns
-     * the tag with the {@code #}.
+     * the tag with the leading {@code #}.
      *
      * @param getWithoutHashTag get the player tag without the leading
-     *                          hashtag.
-     * @return the player's ID.
+     *                          {@code #}.
+     * @return the player's ID or {@link JsonInfoReader#NON_EXISTENT_ATTRIBUTE NON-EXISTENT ATTRIBUTE}
+     * if the {@code tag} attribute cannot be found in the JSON string.
      */
 
     public String getTag(boolean getWithoutHashTag) {
-        String tag = data().get("tag").getAsString();
+        String tag = getStringIfPresent("tag");
 
         if (getWithoutHashTag) {
             return tag.substring(1);
         }
-
 
         return tag;
     }
@@ -64,144 +50,163 @@ public final class Player {
     /**
      * Get the in-game name of the player.
      *
-     * @return the name of the player.
-     * */
+     * @return the name of the player or {@link JsonInfoReader#NON_EXISTENT_ATTRIBUTE NON-EXISTENT ATTRIBUTE}
+     * if the {@code name} attribute cannot be found in the JSON string.
+     */
 
     public String getName() {
-        return data().get("name").getAsString();
+        return getStringIfPresent("name");
     }
 
     /**
      * Get the player's town hall level
      *
-     * @return the player's town hall level
-     * */
+     * @return the player's town hall level or {@code -1}
+     * if the {@code townHallLevel} attribute cannot be found in the JSON string.
+     */
 
     public int getTownHallLevel() {
-        return data().get("townHallLevel").getAsInt();
+        return getIntIfPresent("townHallLevel");
     }
 
     /**
      * Get the player's experience level.
      *
-     * @return the player's experience level.
-     * */
+     * @return the player's experience level or {@code -1}
+     * if the {@code expLevel} attribute cannot be found in the JSON string.
+     */
 
     public int getExpLevel() {
-        return data().get("expLevel").getAsInt();
+        return getIntIfPresent("expLevel");
     }
 
     /**
      * Get the number the trophies the player has.
      *
-     * @return the number of trophies.
-     * */
+     * @return the number of trophies or {@code -1}
+     * if the {@code trophies} attribute cannot be found in the JSON string.
+     */
 
     public int getTrophies() {
-        return data().get("trophies").getAsInt();
+        return getIntIfPresent("trophies");
     }
 
     /**
      * Get the number of best trophies the player has.
      *
-     * @return the number of best trophies.
-     * */
+     * @return the number of best trophies or {@code -1}
+     * if the {@code bestTrophies} attribute cannot be found in the JSON string.
+     */
 
     public int getBestTrophies() {
-        return data().get("bestTrophies").getAsInt();
+        return getIntIfPresent("bestTrophies");
     }
 
     /**
      * Get the player's number of war stars.
      *
-     * @return the number of war stars.
-     * */
+     * @return the number of war stars or {@code -1}
+     * if the {@code warStars} attribute cannot be found in the JSON string.
+     */
 
     public int getWarStars() {
-        return data().get("warStars").getAsInt();
+        return getIntIfPresent("warStars");
     }
 
     /**
      * Get the player's number of wins attacking.
      *
-     * @return the number of attack wins.
-     * */
+     * @return the number of attack wins or {@code -1}
+     * if the {@code attackWins} attribute cannot be found in the JSON string.
+     */
 
     public int getAttackWins() {
-        return data().get("attackWins").getAsInt();
+        return getIntIfPresent("attackWins");
     }
 
     /**
      * The player's number of wins defending
      *
-     * @return the number of defense wins.
-     * */
+     * @return the number of defense wins or {@code -1}
+     * if the {@code defenseWins} attribute cannot be found in the JSON string.
+     */
 
     public int getDefenseWins() {
-        return data().get("defenseWins").getAsInt();
+        return getIntIfPresent("defenseWins");
     }
 
     /**
      * Get the player's number of builder base trophies.
      *
-     * @return the number of builder base trophies.
-     * */
+     * @return the number of builder base trophies or {@code -1}
+     * if the {@code builderBaseTrophies} attribute cannot be found in the JSON string.
+     */
 
     public int getBuilderBaseTrophies() {
-        return data().get("builderBaseTrophies").getAsInt();
+        return getIntIfPresent("builderBaseTrophies");
 
     }
 
     /**
      * Get the player's number of best builder base trophies.
      *
-     * @return the number of best builder base trophies.
-     * */
+     * @return the number of best builder base trophies or {@code -1}
+     * if the {@code bestBuilderBaseTrophies} attribute cannot be found in the JSON string.
+     */
 
     public int getBestBuilderBaseTrophies() {
-        return data().get("bestBuilderBaseTrophies").getAsInt();
+        return getIntIfPresent("bestBuilderBaseTrophies");
     }
 
     /**
      * Get the number of donations sent by the player.
      *
-     * @return the number of donations.
-     * */
+     * @return the number of donations or {@code -1}
+     * if the {@code donations} attribute cannot be found in the JSON string.
+     */
 
     public int getDonations() {
-        return data().get("donations").getAsInt();
+        return getIntIfPresent("donations");
     }
 
     /**
      * Get the number of donations received by the player.
      *
-     * @return the number of donations received.
-     * */
+     * @return the number of donations received or {@code -1}
+     * if the {@code donationsReceived} attribute cannot be found in the JSON string.
+     */
 
     public int getDonationsReceived() {
-        return data().get("donationsReceived").getAsInt();
+        return getIntIfPresent("donationsReceived");
     }
 
     /**
      * Get the number of contributions the player has made to the clan capital.
      *
-     * @return the number of contributions.
-     * */
+     * @return the number of contributions or {@code -1}
+     * if the {@code clanCapitalContributions} attribute cannot be found in the JSON string.
+     */
 
     public int getClanCapitalContributions() {
-        return data().get("clanCapitalContributions").getAsInt();
+        return getIntIfPresent("clanCapitalContributions");
     }
 
     /**
      * Get what the player has achieved.
      *
      * @return an array of achievements.
-     * */
+     * Empty if the {@code achievements}
+     * cannot be found in the JSON string.
+     */
 
     public @NotNull Achievement[] getAchievements() {
-        JsonArray achievements = data().get("achievements").getAsJsonArray();
+        JsonArray achievements = getJsonArrayIfPresent("achievements");
 
         Achievement[] achievementArray = new Achievement[achievements.size()];
+
+        if (achievementArray.length == 0) {
+            return achievementArray;
+        }
 
         for (int i = 0; i < achievementArray.length; i++) {
             JsonObject achievementObject = achievements.get(i).getAsJsonObject();
@@ -218,12 +223,18 @@ public final class Player {
      * Get the troops owned by the player.
      *
      * @return an array of troops.
-     * */
+     * Empty if the {@code achievements}
+     * cannot be found in the JSON string.
+     */
 
     public @NotNull Troop[] getTroops() {
-        JsonArray troops = data().get("troops").getAsJsonArray();
+        JsonArray troops = getJsonArrayIfPresent("troops");
 
         Troop[] troopArray = new Troop[troops.size()];
+
+        if (troopArray.length == 0) {
+            return troopArray;
+        }
 
         for (int i = 0; i < troopArray.length; i++) {
             JsonObject troopObject = troops.get(i).getAsJsonObject();
@@ -236,15 +247,43 @@ public final class Player {
         return troopArray;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Player player = (Player) o;
-        return Objects.equals(jsonString, player.jsonString);
+    /**
+     * Method for testing {@link JsonInfoReader#getStringIfPresent(String)};
+     *
+     * @since 1.1.0-beta.2
+     */
+
+    String getNonExistentAttributeString() {
+        return getStringIfPresent("writeOnceRunAnywhere");
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(jsonString);
+    /**
+     * Method for testing {@link JsonInfoReader#getIntIfPresent(String)};
+     *
+     * @since 1.1.0-beta.2
+     */
+
+    int getNonExistentAttributeInt() {
+        return getIntIfPresent("writeOnceRunAnywhere");
+    }
+
+    /**
+     * Method for testing {@link JsonInfoReader#getJsonObjectIfPresent(String)};
+     *
+     * @since 1.1.0-beta.2
+     */
+
+    JsonObject getNonExistentAttributeJsonObject() {
+        return getJsonObjectIfPresent("writeOnceRunAnywhere");
+    }
+
+    /**
+     * Method for testing {@link JsonInfoReader#getJsonArrayIfPresent(String)};
+     *
+     * @since 1.1.0-beta.2
+     */
+
+    JsonArray getNonExistentAttributeJsonArray() {
+        return getJsonArrayIfPresent("writeOnceRunAnywhere");
     }
 }

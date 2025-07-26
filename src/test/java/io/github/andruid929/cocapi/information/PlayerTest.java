@@ -1,5 +1,6 @@
 package io.github.andruid929.cocapi.information;
 
+import com.google.gson.JsonObject;
 import io.github.andruid929.cocapi.util.JsonCollector;
 import org.junit.jupiter.api.Test;
 
@@ -7,6 +8,7 @@ import java.io.File;
 
 import static io.github.andruid929.cocapi.TestConstants.SAMPLE_PLAYER_INFO_RESPONSE_FILENAME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PlayerTest {
 
@@ -96,5 +98,25 @@ class PlayerTest {
     @Test
     void getTroops() {
         assertEquals(19, player.getTroops().length);
+    }
+
+    @Test
+    void getNonExistentAttributeInt() {
+        assertEquals(-1, player.getNonExistentAttributeInt());
+    }
+
+    @Test
+    void getNonExistentAttributeString() {
+        assertTrue(player.getNonExistentAttributeString().endsWith("found"));
+    }
+
+    @Test
+    void getNonExistentAttributeJsonObject() {
+        assertEquals(new JsonObject(), player.getNonExistentAttributeJsonObject());
+    }
+
+    @Test
+    void getNonExistentAttributeJsonArray() {
+        assertEquals(0, player.getNonExistentAttributeJsonArray().size());
     }
 }

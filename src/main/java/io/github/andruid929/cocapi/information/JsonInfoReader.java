@@ -1,0 +1,135 @@
+package io.github.andruid929.cocapi.information;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+/**
+ * Class to handle JSON string reading. This class was created to
+ * check for a specific attribute and gracefully handle the error when
+ * the attribute cannot be found.
+ * 
+ * @author Andrew Jones
+ * @since 1.1.0-beta.2
+ * @version 1.0
+ * */
+
+public abstract class JsonInfoReader {
+
+    private String jsonString;
+    
+    /**
+     * Returned when the {@link JsonInfoReader} cannot find a specified attribute.
+     * */
+    
+    public static final String NON_EXISTENT_ATTRIBUTE = "Attribute not found";
+    
+    /**
+     * Tell the JSON reader where to read attributes from.
+     * 
+     * @param jsonString the JSON string for the attributes.
+     * */
+
+    protected void setJsonString(String jsonString) {
+        this.jsonString = jsonString;
+    }
+
+    /**
+     * Get the root element from which attributes can be read.
+     *
+     * @return root element for attributes.
+     */
+
+    protected JsonObject data() {
+        return JsonParser.parseString(jsonString).getAsJsonObject();
+    }
+    
+    /**
+     * Attempt to get a String attribute from the JSON string.
+     * 
+     * @param attrName the name of attribute to get.
+     * @return the attribute String or {@link #NON_EXISTENT_ATTRIBUTE}
+     * if the attribute does not exist.
+     * */
+
+    protected String getStringIfPresent(String attrName) {
+        try {
+
+            return data().get(attrName).getAsString();
+
+        } catch (NullPointerException e) {
+            String output = "\"".concat(attrName).concat("\" attribute not found");
+
+            System.err.println(output);
+
+            return NON_EXISTENT_ATTRIBUTE;
+        }
+    }
+
+    /**
+     * Attempt to get a number attribute from the JSON string.
+     *
+     * @param attrName the name of attribute to get.
+     * @return the attribute int or {@code -1}
+     * if the attribute does not exist.
+     * */
+
+    protected int getIntIfPresent(String attrName) {
+        try {
+
+            return data().get(attrName).getAsInt();
+
+        } catch (NullPointerException e) {
+            String output = "\"".concat(attrName).concat("\" attribute not found");
+
+            System.err.println(output);
+
+            return -1;
+        }
+    }
+
+    /**
+     * Attempt to get an array attribute from the JSON string.
+     *
+     * @param attrName the name of attribute to get.
+     * @return the attribute array as {@link JsonArray} or
+     * an empty {@link JsonArray} if the attribute does not exist.
+     * */
+
+    protected JsonArray getJsonArrayIfPresent(String attrName) {
+        try {
+
+            return data().get(attrName).getAsJsonArray();
+
+        } catch (NullPointerException e) {
+            String output = "\"".concat(attrName).concat("\" not found");
+
+            System.err.println(output);
+
+            return new JsonArray();
+        }
+    }
+
+    /**
+     * Attempt to get a special attribute from the JSON string.
+     * <p>Special attributes have child attributes within them.
+     *
+     * @param attrName the name of attribute to get.
+     * @return the attribute as {@link JsonObject} or
+     * an empty {@link JsonObject} if the attribute does not exist.
+     * */
+
+    protected JsonObject getJsonObjectIfPresent(String attrName) {
+        try {
+
+            return data().get(attrName).getAsJsonObject();
+
+        } catch (NullPointerException e) {
+            String output = "\"".concat(attrName).concat("\" attribute not found");
+
+            System.err.println(output);
+
+            return new JsonObject();
+        }
+    }
+}

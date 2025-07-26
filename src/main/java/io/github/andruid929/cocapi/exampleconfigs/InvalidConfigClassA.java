@@ -1,6 +1,9 @@
 package io.github.andruid929.cocapi.exampleconfigs;
 
+import com.google.gson.JsonObject;
 import io.github.andruid929.cocapi.annotation.ApiToken;
+import io.github.andruid929.cocapi.attributes.Troop;
+import io.github.andruid929.cocapi.information.Player;
 
 /**
  * This class shows an invalid way to create a configuration class.
