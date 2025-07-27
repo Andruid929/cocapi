@@ -29,6 +29,8 @@ public final class Troop extends JsonInfoReader {
 
     public Troop(JsonObject troop) {
         this.troop = troop;
+
+        setJsonString("{ \"name\": \"Troop\"}");
     }
 
     @Override
@@ -39,7 +41,8 @@ public final class Troop extends JsonInfoReader {
     /**
      * Get the name of the troop.
      *
-     * @return the name of the troop.
+     * @return the name of the troop or {@link JsonInfoReader#NON_EXISTENT_ATTRIBUTE NON-EXISTENT ATTRIBUTE}
+     * if the {@code name} attribute cannot be found in the JSON string.
      */
 
     public String getName() {
@@ -49,7 +52,8 @@ public final class Troop extends JsonInfoReader {
     /**
      * Get the troop's level.
      *
-     * @return the troop's level.
+     * @return the troop's level or {@link JsonInfoReader#NON_EXISTENT_ATTRIBUTE NON-EXISTENT ATTRIBUTE}
+     * if the {@code level} attribute cannot be found in the JSON string.
      */
 
     public int getLevel() {
@@ -59,7 +63,8 @@ public final class Troop extends JsonInfoReader {
     /**
      * Get the troop's max level.
      *
-     * @return the troop's max level.
+     * @return the troop's max level or {@link JsonInfoReader#NON_EXISTENT_ATTRIBUTE NON-EXISTENT ATTRIBUTE}
+     * if the {@code maxLevel} attribute cannot be found in the JSON string.
      */
 
     public int getMaxLevel() {
@@ -69,7 +74,8 @@ public final class Troop extends JsonInfoReader {
     /**
      * Get the troop's village.
      *
-     * @return the troop's village.
+     * @return the troop's village or {@link JsonInfoReader#NON_EXISTENT_ATTRIBUTE NON-EXISTENT ATTRIBUTE}
+     * if the {@code village} attribute cannot be found in the JSON string.
      */
 
     public String getVillage() {
@@ -79,12 +85,16 @@ public final class Troop extends JsonInfoReader {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Troop trooper = (Troop) o;
-        return Objects.equals(troop, trooper.troop);
+
+        if (!super.equals(o)) return false;
+
+        Troop that = (Troop) o;
+
+        return Objects.equals(troop, that.troop);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(troop);
+        return Objects.hash(super.hashCode(), troop);
     }
 }

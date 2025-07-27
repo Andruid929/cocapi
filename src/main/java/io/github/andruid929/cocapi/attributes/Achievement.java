@@ -6,7 +6,7 @@ import io.github.andruid929.cocapi.information.JsonInfoReader;
 import java.util.Objects;
 
 /**
- * Class to represent a player's achievements.
+ * Class to represent the player achievements attribute.
  *
  * @author Andrew Jones
  * @version 1, 0
@@ -29,6 +29,8 @@ public final class Achievement extends JsonInfoReader {
 
     public Achievement(JsonObject achievement) {
         this.achievement = achievement;
+
+        setJsonString("{ \"name\": \"Achievement\"}");
     }
 
     @Override
@@ -39,7 +41,8 @@ public final class Achievement extends JsonInfoReader {
     /**
      * Get the name of the achievement.
      *
-     * @return the name of the achievement.
+     * @return the name of the achievement or {@link JsonInfoReader#NON_EXISTENT_ATTRIBUTE NON-EXISTENT ATTRIBUTE}
+     * if the{@code name} attribute does not exist in the JSON object.
      */
 
     public String getName() {
@@ -49,7 +52,8 @@ public final class Achievement extends JsonInfoReader {
     /**
      * Get the number of stars.
      *
-     * @return the number of stars.
+     * @return the number of stars or {@code -1}
+     * if the {@code stars} attribute does not exist.
      */
 
     public int getStars() {
@@ -59,7 +63,8 @@ public final class Achievement extends JsonInfoReader {
     /**
      * Get the value of the achievement.
      *
-     * @return the value.
+     * @return the value or {@code -1}
+     * if the {@code value} attribute does not exist.
      */
 
     public int getValue() {
@@ -69,7 +74,8 @@ public final class Achievement extends JsonInfoReader {
     /**
      * Get the target.
      *
-     * @return the target.
+     * @return the target or {@code -1}
+     * if the {@code target} attribute does not exist.
      */
 
     public int getTarget() {
@@ -79,7 +85,8 @@ public final class Achievement extends JsonInfoReader {
     /**
      * Get the information about the achievement.
      *
-     * @return the information about the achievement.
+     * @return the information about the achievement or {@link JsonInfoReader#NON_EXISTENT_ATTRIBUTE NON-EXISTENT ATTRIBUTE}
+     * if the {@code info} attribute cannot be found in the JSON string.
      */
 
     public String getInfo() {
@@ -89,7 +96,8 @@ public final class Achievement extends JsonInfoReader {
     /**
      * Get the completion information.
      *
-     * @return the information on how this achievement was achieved.
+     * @return the information on how this achievement was achieved or {@link JsonInfoReader#NON_EXISTENT_ATTRIBUTE NON-EXISTENT ATTRIBUTE}
+     * if the {@code completionInfo} attribute cannot be found in the JSON string.
      */
 
     public String getCompletionInfo() {
@@ -99,7 +107,8 @@ public final class Achievement extends JsonInfoReader {
     /**
      * Get the village name.
      *
-     * @return the name of the village.
+     * @return the name of the village or {@link JsonInfoReader#NON_EXISTENT_ATTRIBUTE NON-EXISTENT ATTRIBUTE}
+     * if the {@code village} attribute cannot be found in the JSON string.
      */
 
     public String getVillage() {
@@ -109,12 +118,16 @@ public final class Achievement extends JsonInfoReader {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
+
+        if (!super.equals(o)) return false;
+
         Achievement that = (Achievement) o;
+
         return Objects.equals(achievement, that.achievement);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(achievement);
+        return Objects.hash(super.hashCode(), achievement);
     }
 }

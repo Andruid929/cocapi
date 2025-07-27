@@ -4,31 +4,33 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.util.Objects;
+
 /**
  * Class to handle JSON string reading. This class was created to
  * check for a specific attribute and gracefully handle the error when
  * the attribute cannot be found.
- * 
+ *
  * @author Andrew Jones
- * @since 1.1.0-beta.2
  * @version 1.0
- * */
+ * @since 1.1.0-beta.2
+ */
 
 public abstract class JsonInfoReader {
 
-    private String jsonString;
-    
+    protected String jsonString;
+
     /**
      * Returned when the {@link JsonInfoReader} cannot find a specified attribute.
-     * */
-    
+     */
+
     public static final String NON_EXISTENT_ATTRIBUTE = "Attribute not found";
-    
+
     /**
      * Tell the JSON reader where to read attributes from.
-     * 
+     *
      * @param jsonString the JSON string for the attributes.
-     * */
+     */
 
     protected void setJsonString(String jsonString) {
         this.jsonString = jsonString;
@@ -43,14 +45,14 @@ public abstract class JsonInfoReader {
     protected JsonObject data() {
         return JsonParser.parseString(jsonString).getAsJsonObject();
     }
-    
+
     /**
      * Attempt to get a String attribute from the JSON string.
-     * 
+     *
      * @param attrName the name of attribute to get.
      * @return the attribute String or {@link #NON_EXISTENT_ATTRIBUTE}
      * if the attribute does not exist.
-     * */
+     */
 
     protected String getStringIfPresent(String attrName) {
         try {
@@ -72,7 +74,7 @@ public abstract class JsonInfoReader {
      * @param attrName the name of attribute to get.
      * @return the attribute int or {@code -1}
      * if the attribute does not exist.
-     * */
+     */
 
     protected int getIntIfPresent(String attrName) {
         try {
@@ -94,7 +96,7 @@ public abstract class JsonInfoReader {
      * @param attrName the name of attribute to get.
      * @return the attribute array as {@link JsonArray} or
      * an empty {@link JsonArray} if the attribute does not exist.
-     * */
+     */
 
     protected JsonArray getJsonArrayIfPresent(String attrName) {
         try {
@@ -117,7 +119,7 @@ public abstract class JsonInfoReader {
      * @param attrName the name of attribute to get.
      * @return the attribute as {@link JsonObject} or
      * an empty {@link JsonObject} if the attribute does not exist.
-     * */
+     */
 
     protected JsonObject getJsonObjectIfPresent(String attrName) {
         try {
@@ -131,5 +133,17 @@ public abstract class JsonInfoReader {
 
             return new JsonObject();
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        JsonInfoReader that = (JsonInfoReader) o;
+        return Objects.equals(jsonString, that.jsonString);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(jsonString);
     }
 }
