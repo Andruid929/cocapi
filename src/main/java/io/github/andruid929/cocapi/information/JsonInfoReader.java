@@ -18,6 +18,11 @@ import java.util.Objects;
 
 public abstract class JsonInfoReader {
 
+    /**
+     * The JSON string to be read which contains all the information about
+     * a specific response.
+     */
+
     protected String jsonString;
 
     /**

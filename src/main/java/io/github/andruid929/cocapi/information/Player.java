@@ -3,6 +3,7 @@ package io.github.andruid929.cocapi.information;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.github.andruid929.cocapi.attributes.Achievement;
+import io.github.andruid929.cocapi.attributes.Label;
 import io.github.andruid929.cocapi.attributes.Troop;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Andrew Jones
  * @version 2.0
- * @since 1.1.0-alpha.1
  * @see io.github.andruid929.cocapi.information.JsonInfoReader
+ * @since 1.1.0-alpha.1
  */
 
 public final class Player extends JsonInfoReader {
@@ -39,6 +40,10 @@ public final class Player extends JsonInfoReader {
 
     public String getTag(boolean getWithoutHashTag) {
         String tag = getStringIfPresent("tag");
+
+        if (!tag.startsWith("#")) {
+            return tag;
+        }
 
         if (getWithoutHashTag) {
             return tag.substring(1);
@@ -199,7 +204,7 @@ public final class Player extends JsonInfoReader {
      * cannot be found in the JSON string.
      */
 
-    public @NotNull Achievement[] getAchievements() {
+    public @NotNull Achievement @NotNull [] getAchievements() {
         JsonArray achievements = getJsonArrayIfPresent("achievements");
 
         Achievement[] achievementArray = new Achievement[achievements.size()];
@@ -227,7 +232,35 @@ public final class Player extends JsonInfoReader {
      * cannot be found in the JSON string.
      */
 
-    public @NotNull Troop[] getTroops() {
+    public @NotNull Label @NotNull [] getLabels() {
+        JsonArray labels = getJsonArrayIfPresent("labels");
+
+        Label[] labelArray = new Label[labels.size()];
+
+        if (labelArray.length == 0) {
+            return labelArray;
+        }
+
+        for (int i = 0; i < labelArray.length; i++) {
+            JsonObject labelObject = labels.get(i).getAsJsonObject();
+
+            Label label = new Label(labelObject);
+
+            labelArray[i] = label;
+        }
+
+        return labelArray;
+    }
+
+    /**
+     * Get the troops owned by the player.
+     *
+     * @return an array of troops.
+     * Empty if the {@code achievements}
+     * cannot be found in the JSON string.
+     */
+
+    public @NotNull Troop @NotNull [] getTroops() {
         JsonArray troops = getJsonArrayIfPresent("troops");
 
         Troop[] troopArray = new Troop[troops.size()];

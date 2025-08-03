@@ -96,6 +96,11 @@ class PlayerTest {
     }
 
     @Test
+    void getLabels() {
+        assertEquals(3, player.getLabels().length);
+    }
+
+    @Test
     void getTroops() {
         assertEquals(19, player.getTroops().length);
     }

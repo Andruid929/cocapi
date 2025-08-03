@@ -492,7 +492,32 @@
       "village": "home"
     }
   ],
-  "labels": [],
+  "labels": [
+    {
+      "id": 57000012,
+      "name": "Talkative",
+      "iconUrls": {
+        "small": "https://api-assets.clashofclans.com/labels/64/H75LWbZqe5Lm2rXYUrEDgQNa3kpZdtFCjiyvnNSvh00.png",
+        "medium": "https://api-assets.clashofclans.com/labels/128/H75LWbZqe5Lm2rXYUrEDgQNa3kpZdtFCjiyvnNSvh00.png"
+      }
+    },
+    {
+      "id": 57000014,
+      "name": "Competitive",
+      "iconUrls": {
+        "small": "https://api-assets.clashofclans.com/labels/64/DfTPKAsvjdsD-CFfbpmfIJiT2uF3FQLfftRdJgBA37Y.png",
+        "medium": "https://api-assets.clashofclans.com/labels/128/DfTPKAsvjdsD-CFfbpmfIJiT2uF3FQLfftRdJgBA37Y.png"
+      }
+    },
+    {
+      "id": 57000015,
+      "name": "Veteran",
+      "iconUrls": {
+        "small": "https://api-assets.clashofclans.com/labels/64/u-VKK5y0hj0U8B1xdawjxNcXciv-fwMK3VqEBWCn1oM.png",
+        "medium": "https://api-assets.clashofclans.com/labels/128/u-VKK5y0hj0U8B1xdawjxNcXciv-fwMK3VqEBWCn1oM.png"
+      }
+    }
+  ],
   "troops": [
     {
       "name": "Barbarian",

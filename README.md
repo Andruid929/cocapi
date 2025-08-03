@@ -4,9 +4,21 @@ This is a library for making simple Clash of clans API **GET** requests.
 
 ## Getting started
 
-- Go to [GitHub releases](https://github.com/Andruid929/cocapi/releases)
-- Download the jar (Sources are optional but recommended for documentation)
-- Add the jar as a dependency to your project
+- Add the library dependency to your project.
+
+**Maven**
+```xml
+<dependency>
+   <groupId>io.github.andruid929</groupId>
+   <artifactId>cocapi</artifactId>
+   <version>1.1.0-beta.2</version>
+</dependency>
+```
+
+**Gradle**
+```groovy
+implementation 'io.github.andruid929:cocoapi:1.1.0-beta.2'
+```
 
 ### Note: Clash of clans API requires a JSON token to validate requests.
 
@@ -29,7 +41,7 @@ If you already have an API token, proceed with:
 
 Here's what the field should look like
 
- ```
+ ```java
      @ApiToken
      public static final String MY_API_TOKEN = "api.token.here";
  ```
