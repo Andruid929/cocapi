@@ -2,9 +2,7 @@ package io.github.andruid929.cocapi.information;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import io.github.andruid929.cocapi.attributes.Achievement;
-import io.github.andruid929.cocapi.attributes.Label;
-import io.github.andruid929.cocapi.attributes.Troop;
+import io.github.andruid929.cocapi.attributes.*;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -278,6 +276,66 @@ public final class Player extends JsonInfoReader {
         }
 
         return troopArray;
+    }
+
+    public @NotNull Hero @NotNull [] getHeroes() {
+        JsonArray heroes = getJsonArrayIfPresent("heroes");
+
+        Hero[] heroArray = new Hero[heroes.size()];
+
+        if (heroArray.length == 0) {
+            return heroArray;
+        }
+
+        for (int i = 0; i < heroArray.length; i++) {
+            JsonObject object = heroes.get(i).getAsJsonObject();
+
+            Hero hero = new Hero(object);
+
+            heroArray[i] = hero;
+        }
+
+        return heroArray;
+    }
+
+    public @NotNull Hero.HeroEquipment @NotNull [] getHeroEquipment() {
+        JsonArray heroEquipment = getJsonArrayIfPresent("heroEquipment");
+
+        Hero.HeroEquipment[] heroEquipmentArray = new Hero.HeroEquipment[heroEquipment.size()];
+
+        if (heroEquipmentArray.length == 0) {
+            return heroEquipmentArray;
+        }
+
+        for (int i = 0; i < heroEquipmentArray.length; i++) {
+            JsonObject object = heroEquipment.get(i).getAsJsonObject();
+
+            Hero.HeroEquipment equipment = new Hero.HeroEquipment(object);
+
+            heroEquipmentArray[i] = equipment;
+        }
+
+        return heroEquipmentArray;
+    }
+
+    public @NotNull Spell @NotNull [] getSpells() {
+        JsonArray spells = getJsonArrayIfPresent("spells");
+
+        Spell[] spellArray = new Spell[spells.size()];
+
+        if (spellArray.length == 0) {
+            return spellArray;
+        }
+
+        for (int i = 0; i < spellArray.length; i++) {
+            JsonObject object = spells.get(i).getAsJsonObject();
+
+            Spell spell = new Spell(object);
+
+            spellArray[i] = spell;
+        }
+
+        return spellArray;
     }
 
     /**

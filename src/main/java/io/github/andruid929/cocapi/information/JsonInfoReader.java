@@ -151,4 +151,9 @@ public abstract class JsonInfoReader {
     public int hashCode() {
         return Objects.hashCode(jsonString);
     }
+
+    @Override
+    public String toString() {
+        return jsonString;
+    }
 }

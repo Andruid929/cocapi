@@ -27,6 +27,8 @@ public final class Label extends JsonInfoReader {
 
     public Label(JsonObject label) {
         this.label = label;
+
+        setJsonString("{\"name:\" \"label\"}");
     }
 
     @Override

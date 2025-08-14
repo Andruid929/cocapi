@@ -1,6 +1,8 @@
 package io.github.andruid929.cocapi.information;
 
 import com.google.gson.JsonObject;
+import io.github.andruid929.cocapi.TestConstants;
+import io.github.andruid929.cocapi.attributes.Hero;
 import io.github.andruid929.cocapi.util.JsonCollector;
 import org.junit.jupiter.api.Test;
 
@@ -103,6 +105,30 @@ class PlayerTest {
     @Test
     void getTroops() {
         assertEquals(19, player.getTroops().length);
+    }
+
+    @Test
+    void getHeroes() {
+        assertEquals(21, player.getHeroes()[0].getLevel());
+    }
+
+    @Test
+    void getHeroEquipment() {
+        Hero hero = player.getHeroes()[0];
+
+        assertEquals(18, hero.getHeroEquipment()[0].getMaxLevel());
+
+        assertEquals("Barbarian Puppet", player.getHeroEquipment()[0].getName());
+    }
+
+    @Test
+    void getSpells() {
+        assertEquals(4, player.getSpells()[0].getLevel());
+    }
+
+    @Test
+    void testToString() {
+        assertTrue(TestConstants.isToStringCorrect(player));
     }
 
     @Test

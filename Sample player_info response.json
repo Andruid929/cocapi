@@ -634,7 +634,166 @@
       "village": "home"
     }
   ],
-  "heroes": [],
-  "heroEquipment": [],
-  "spells": []
+  "heroes": [
+    {
+      "name": "Barbarian King",
+      "level": 21,
+      "maxLevel": 100,
+      "equipment": [
+        {
+          "name": "Rage Vial",
+          "level": 1,
+          "maxLevel": 18,
+          "village": "home"
+        },
+        {
+          "name": "Barbarian Puppet",
+          "level": 1,
+          "maxLevel": 18,
+          "village": "home"
+        }
+      ],
+      "village": "home"
+    },
+    {
+      "name": "Archer Queen",
+      "level": 11,
+      "maxLevel": 100,
+      "equipment": [
+        {
+          "name": "Invisibility Vial",
+          "level": 1,
+          "maxLevel": 18,
+          "village": "home"
+        },
+        {
+          "name": "Archer Puppet",
+          "level": 1,
+          "maxLevel": 18,
+          "village": "home"
+        }
+      ],
+      "village": "home"
+    },
+    {
+      "name": "Minion Prince",
+      "level": 2,
+      "maxLevel": 90,
+      "equipment": [
+        {
+          "name": "Dark Orb",
+          "level": 1,
+          "maxLevel": 18,
+          "village": "home"
+        },
+        {
+          "name": "Henchmen Puppet",
+          "level": 1,
+          "maxLevel": 18,
+          "village": "home"
+        }
+      ],
+      "village": "home"
+    }
+  ],
+  "heroEquipment": [
+    {
+      "name": "Barbarian Puppet",
+      "level": 1,
+      "maxLevel": 18,
+      "village": "home"
+    },
+    {
+      "name": "Rage Vial",
+      "level": 1,
+      "maxLevel": 18,
+      "village": "home"
+    },
+    {
+      "name": "Archer Puppet",
+      "level": 1,
+      "maxLevel": 18,
+      "village": "home"
+    },
+    {
+      "name": "Invisibility Vial",
+      "level": 1,
+      "maxLevel": 18,
+      "village": "home"
+    },
+    {
+      "name": "Earthquake Boots",
+      "level": 1,
+      "maxLevel": 18,
+      "village": "home"
+    },
+    {
+      "name": "Giant Arrow",
+      "level": 1,
+      "maxLevel": 18,
+      "village": "home"
+    },
+    {
+      "name": "Henchmen Puppet",
+      "level": 1,
+      "maxLevel": 18,
+      "village": "home"
+    },
+    {
+      "name": "Dark Orb",
+      "level": 1,
+      "maxLevel": 18,
+      "village": "home"
+    }
+  ],
+  "spells": [
+    {
+      "name": "Lightning Spell",
+      "level": 4,
+      "maxLevel": 12,
+      "village": "home"
+    },
+    {
+      "name": "Healing Spell",
+      "level": 4,
+      "maxLevel": 11,
+      "village": "home"
+    },
+    {
+      "name": "Rage Spell",
+      "level": 3,
+      "maxLevel": 6,
+      "village": "home"
+    },
+    {
+      "name": "Jump Spell",
+      "level": 1,
+      "maxLevel": 5,
+      "village": "home"
+    },
+    {
+      "name": "Freeze Spell",
+      "level": 2,
+      "maxLevel": 7,
+      "village": "home"
+    },
+    {
+      "name": "Poison Spell",
+      "level": 2,
+      "maxLevel": 11,
+      "village": "home"
+    },
+    {
+      "name": "Earthquake Spell",
+      "level": 2,
+      "maxLevel": 5,
+      "village": "home"
+    },
+    {
+      "name": "Haste Spell",
+      "level": 1,
+      "maxLevel": 6,
+      "village": "home"
+    }
+  ]
 }

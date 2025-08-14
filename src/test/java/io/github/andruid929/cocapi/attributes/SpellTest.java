@@ -9,33 +9,38 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LabelTest {
+class SpellTest {
 
-    private final Label label;
+    private final Spell spell;
 
     {
         Player player = new Player(JsonCollector.getJsonString(new File(TestConstants.SAMPLE_PLAYER_INFO_RESPONSE_FILENAME)));
 
-        label = player.getLabels()[0];
-    }
-
-    @Test
-    void getId() {
-        assertEquals(57000012, label.getId());
+        spell = player.getSpells()[0];
     }
 
     @Test
     void getName() {
-        assertEquals("Talkative", label.getName());
+        assertEquals("Lightning Spell", spell.getName());
     }
 
     @Test
-    void getIconUrls() {
-        assertTrue(label.getIconUrls().getSmallIconUrl().endsWith(".png"));
+    void getLevel() {
+        assertEquals(4, spell.getLevel());
+    }
+
+    @Test
+    void getMaxLevel() {
+        assertEquals(12, spell.getMaxLevel());
+    }
+
+    @Test
+    void getVillage() {
+        assertEquals("home", spell.getVillage());
     }
 
     @Test
     void testToString() {
-        assertTrue(TestConstants.isToStringCorrect(label));
+        assertTrue(TestConstants.isToStringCorrect(spell));
     }
 }

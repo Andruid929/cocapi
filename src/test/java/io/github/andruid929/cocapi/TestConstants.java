@@ -1,5 +1,7 @@
 package io.github.andruid929.cocapi;
 
+import io.github.andruid929.cocapi.information.JsonInfoReader;
+
 /**
  * Utility class for holding constants used in tests
  *
@@ -19,4 +21,9 @@ public final class TestConstants {
     private TestConstants() {
     }
 
+    public static boolean isToStringCorrect(JsonInfoReader attributeReader) {
+        String toString = attributeReader.toString();
+
+        return toString.startsWith("{") && toString.endsWith("}");
+    }
 }
