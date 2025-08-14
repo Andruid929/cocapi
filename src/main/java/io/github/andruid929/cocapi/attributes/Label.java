@@ -88,6 +88,8 @@ public final class Label extends JsonInfoReader {
 
         public IconUrls(JsonObject iconUrls) {
             this.iconUrls = iconUrls;
+
+            setJsonString("{\"name\": \"iconUrls\"" + numberOfReads + "}");
         }
 
         @Override

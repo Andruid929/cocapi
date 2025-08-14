@@ -18,6 +18,8 @@ import java.util.Objects;
 
 public abstract class JsonInfoReader {
 
+    protected static long numberOfReads;
+
     /**
      * The JSON string to be read which contains all the information about
      * a specific response.
@@ -39,6 +41,8 @@ public abstract class JsonInfoReader {
 
     protected void setJsonString(String jsonString) {
         this.jsonString = jsonString;
+
+        numberOfReads++;
     }
 
     /**

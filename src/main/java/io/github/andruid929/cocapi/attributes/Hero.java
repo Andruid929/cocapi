@@ -12,7 +12,7 @@ public class Hero extends JsonInfoReader {
     public Hero(JsonObject hero) {
         this.hero = hero;
 
-        setJsonString("{\"name\": \"hero\"}");
+        setJsonString("{\"name\": \"hero\"" + numberOfReads + "}");
     }
 
     @Override
@@ -63,7 +63,7 @@ public class Hero extends JsonInfoReader {
         public HeroEquipment(JsonObject heroEquipment) {
             this.heroEquipment = heroEquipment;
 
-            setJsonString("{\"name\": \"heroEquipment\"}");
+            setJsonString("{\"name\": \"heroEquipment\"" + numberOfReads + "}");
         }
 
         @Override

@@ -11,7 +11,7 @@ public final class Spell extends JsonInfoReader {
     public Spell(JsonObject spell) {
         this.spell = spell;
 
-        setJsonString("{\"name:\" \"spell\"}");
+        setJsonString("{\"name:\" \"spell\"" + numberOfReads + "}");
     }
 
     @Override

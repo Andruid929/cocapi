@@ -116,6 +116,10 @@ class PlayerTest {
     void getHeroEquipment() {
         Hero hero = player.getHeroes()[0];
 
+        for (Hero heroic : player.getHeroes()) {
+            System.out.println(heroic);
+        }
+
         assertEquals(18, hero.getHeroEquipment()[0].getMaxLevel());
 
         assertEquals("Barbarian Puppet", player.getHeroEquipment()[0].getName());

@@ -30,7 +30,7 @@ public final class Troop extends JsonInfoReader {
     public Troop(JsonObject troop) {
         this.troop = troop;
 
-        setJsonString("{ \"name\": \"Troop\"}");
+        setJsonString("{ \"name\": \"Troop\"" + numberOfReads + "}");
     }
 
     @Override

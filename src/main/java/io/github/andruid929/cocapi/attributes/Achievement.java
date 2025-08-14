@@ -30,7 +30,7 @@ public final class Achievement extends JsonInfoReader {
     public Achievement(JsonObject achievement) {
         this.achievement = achievement;
 
-        setJsonString("{ \"name\": \"Achievement\"}");
+        setJsonString("{ \"name\": \"Achievement\"" + numberOfReads + "}");
     }
 
     @Override
