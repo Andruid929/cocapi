@@ -278,6 +278,15 @@ public final class Player extends JsonInfoReader {
         return troopArray;
     }
 
+    /**
+     * Get the heroes owned by the player.
+     *
+     * @return an array of heroes.
+     * Empty if the {@code heroes} attribute
+     * cannot be found in the JSON string.
+     * @since 1.1.0-beta.3
+     */
+
     public @NotNull Hero @NotNull [] getHeroes() {
         JsonArray heroes = getJsonArrayIfPresent("heroes");
 
@@ -298,6 +307,15 @@ public final class Player extends JsonInfoReader {
         return heroArray;
     }
 
+    /**
+     * Get the hero equipment owned by the player.
+     *
+     * @return an array of hero equipment.
+     * Empty if the {@code heroEquipment} attribute
+     * cannot be found in the JSON string.
+     * @since 1.1.0-beta.3
+     */
+
     public @NotNull Hero.HeroEquipment @NotNull [] getHeroEquipment() {
         JsonArray heroEquipment = getJsonArrayIfPresent("heroEquipment");
 
@@ -317,6 +335,15 @@ public final class Player extends JsonInfoReader {
 
         return heroEquipmentArray;
     }
+
+    /**
+     * Get the spells owned by the player.
+     *
+     * @return an array of spells.
+     * Empty if the {@code spells} attribute
+     * cannot be found in the JSON string.
+     * @since 1.1.0-beta.3
+     */
 
     public @NotNull Spell @NotNull [] getSpells() {
         JsonArray spells = getJsonArrayIfPresent("spells");

@@ -18,6 +18,13 @@ import java.util.Objects;
 
 public abstract class JsonInfoReader {
 
+    /**
+     * The number of times this class has read JSON info.
+     * Added to give each instance of this class a unique identity.
+     *
+     * @since 1.1.0-beta,3
+     */
+
     protected static long numberOfReads;
 
     /**
