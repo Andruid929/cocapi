@@ -1,7 +1,9 @@
 package io.github.andruid929.cocapi.resourcetype;
 
+import io.github.andruid929.cocapi.Config;
 import io.github.andruid929.cocapi.annotation.ApiToken;
 import io.github.andruid929.cocapi.api.Constants;
+import io.github.andruid929.cocapi.errorhandling.ExceptionHandleMode;
 import io.github.andruid929.cocapi.exampleconfigs.InvalidConfigClassA;
 import io.github.andruid929.cocapi.exampleconfigs.InvalidConfigClassB;
 import io.github.andruid929.cocapi.exampleconfigs.ValidConfigClass;
@@ -60,6 +62,8 @@ import java.net.URL;
 
 public class Info {
 
+    public static ExceptionHandleMode handleMode;
+
     /**
      * JSON token to be used for request validation.
      */
@@ -103,15 +107,27 @@ public class Info {
             throw new NoSuchFieldException("No API token field found in " + configClassName);
 
         } catch (IllegalAccessException e) {
-            System.err.println("API token in " + configClassName + " is not accessible, it's most likely private");
+            if (Config.getExceptionHandleMode() != 2) {
+
+                System.err.println("API token in " + configClassName + " is not accessible, it's most likely private");
+            }
+
             return false;
 
         } catch (NoSuchFieldException e) {
-            System.err.println(e.getMessage());
+            if (Config.getExceptionHandleMode() != 2) {
+
+                System.err.println(e.getMessage());
+            }
+
             return false;
 
         } catch (NullPointerException e) {
-            System.err.println("Cannot find API token field in " + configClassName + ", make sure the field is static");
+            if (Config.getExceptionHandleMode() != 2) {
+
+                System.err.println("Cannot find API token field in " + configClassName + ", make sure the field is static");
+            }
+
             return false;
         }
     }
@@ -147,15 +163,19 @@ public class Info {
             return connection;
 
         } catch (URISyntaxException e) {
-            System.err.println("Encountered error while parsing endpoint, check for issues:");
-            System.err.println(e.getMessage());
+            if (Config.getExceptionHandleMode() != 1) {
 
-            throw new RuntimeException();
+                System.err.println("Encountered error while parsing endpoint, check for issues:");
+                System.err.println(e.getMessage());
+            }
+
+
+            throw new RuntimeException(e);
 
         } catch (NullPointerException e) {
             System.err.println(e.getMessage() + ", is configuration class set?");
 
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 }

@@ -17,7 +17,7 @@ This is a library for making simple Clash of clans API **GET** requests.
 
 **Gradle**
 ```groovy
-implementation 'io.github.andruid929:cocoapi:1.1.0-beta.2'
+implementation 'io.github.andruid929:cocoapi:1.1.0'
 ```
 
 ### Note: Clash of clans API requires a JSON token to validate requests.

@@ -1,5 +1,7 @@
 package io.github.andruid929.cocapi.resourcetype;
 
+import io.github.andruid929.cocapi.Config;
+import io.github.andruid929.cocapi.errorhandling.ExceptionHandleMode;
 import io.github.andruid929.cocapi.util.JsonCollector;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -46,7 +48,7 @@ public final class PlayerInfo extends Info {
 
     @NotNull
     @Contract(pure = true)
-    public static String getPlayerInfo(@NotNull String playerId) {
+    public static String getPlayerInfo(@NotNull String playerId) throws IOException {
         if (playerId.isBlank() || (playerId.length() != 9)) {
 
             throw new IllegalArgumentException("Invalid Player ID");
@@ -65,15 +67,27 @@ public final class PlayerInfo extends Info {
             return JsonCollector.getJsonString(connection.getInputStream());
 
         } catch (RuntimeException e) {
-            System.err.println(e.getCause().getMessage());
+            if (Config.getExceptionHandleMode() == 1) {
+                throw e;
+            } else if (Config.getExceptionHandleMode() != 2) {
+                System.err.println(e.getCause().getMessage());
+            }
             return FAILED_DATA;
 
         } catch (IOException e) {
-            System.err.println("Connection to API encountered an error:");
-            System.err.println(e.getMessage());
+            if (Config.getExceptionHandleMode() == 1) {
 
-            if ((connection != null)) {
-                System.err.println(JsonCollector.getJsonString(connection.getErrorStream()));
+                throw e;
+            }
+
+            else if (Config.getExceptionHandleMode() != 1) {
+
+                System.err.println("Connection to API encountered an error:");
+                System.err.println(e.getMessage());
+
+                if (connection != null) {
+                    System.err.println(JsonCollector.getJsonString(connection.getErrorStream()));
+                }
             }
 
             return FAILED_DATA;
