@@ -44,6 +44,7 @@ public final class PlayerInfo extends Info {
      * @return player info as JSON String or {@link #FAILED_DATA NULL_DATA}
      * if anything goes wrong while getting the response.
      * @throws IllegalArgumentException if the {@code playerId} is not 9 characters long.
+     * @throws IOException if an I/O error occurs.
      */
 
     @NotNull
@@ -67,31 +68,39 @@ public final class PlayerInfo extends Info {
             return JsonCollector.getJsonString(connection.getInputStream());
 
         } catch (RuntimeException e) {
-            if (Config.getExceptionHandleMode() == 1) {
-                throw e;
-            } else if (Config.getExceptionHandleMode() != 2) {
-                System.err.println(e.getCause().getMessage());
-            }
-            return FAILED_DATA;
 
+            switch (Config.getExceptionHandleMode()) {
+                case 0:
+                    System.err.println(e.getCause().getMessage());
+
+                    return FAILED_DATA;
+
+                case 2:
+                    return FAILED_DATA;
+
+                default:
+                    throw e;
+            }
         } catch (IOException e) {
-            if (Config.getExceptionHandleMode() == 1) {
 
-                throw e;
+            switch (Config.getExceptionHandleMode()) {
+                case 0:
+                    System.err.println("Connection to API encountered an error:");
+                    System.err.println(e.getMessage());
+
+                    if (connection != null) {
+                        System.err.println(JsonCollector.getJsonString(connection.getErrorStream()));
+                    }
+
+                    return FAILED_DATA;
+
+                case 2:
+                    return FAILED_DATA;
+
+                default:
+                    throw e;
+
             }
-
-            else if (Config.getExceptionHandleMode() != 1) {
-
-                System.err.println("Connection to API encountered an error:");
-                System.err.println(e.getMessage());
-
-                if (connection != null) {
-                    System.err.println(JsonCollector.getJsonString(connection.getErrorStream()));
-                }
-            }
-
-            return FAILED_DATA;
-
         } finally {
             if (connection != null) {
 

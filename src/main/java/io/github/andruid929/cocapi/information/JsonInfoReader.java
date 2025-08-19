@@ -3,6 +3,8 @@ package io.github.andruid929.cocapi.information;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+import io.github.andruid929.cocapi.Config;
 
 import java.util.Objects;
 
@@ -12,7 +14,7 @@ import java.util.Objects;
  * the attribute cannot be found.
  *
  * @author Andrew Jones
- * @version 1.0
+ * @version 1.1
  * @since 1.1.0-beta.2
  */
 
@@ -59,7 +61,24 @@ public abstract class JsonInfoReader {
      */
 
     protected JsonObject data() {
-        return JsonParser.parseString(jsonString).getAsJsonObject();
+        try {
+
+            return JsonParser.parseString(jsonString).getAsJsonObject();
+        } catch (JsonSyntaxException e) {
+
+            switch (Config.getExceptionHandleMode()) {
+                case 0:
+                    System.err.println("Cannot parse JSON String");
+
+                    return new JsonObject();
+
+                case 2:
+                    return new JsonObject();
+
+                default:
+                    throw e;
+            }
+        }
     }
 
     /**
@@ -74,13 +93,20 @@ public abstract class JsonInfoReader {
         try {
 
             return data().get(attrName).getAsString();
-
         } catch (NullPointerException e) {
-            String output = "\"".concat(attrName).concat("\" attribute not found");
 
-            System.err.println(output);
+            switch (Config.getExceptionHandleMode()) {
+                case 0:
+                    printErrorMessage(attrName);
 
-            return NON_EXISTENT_ATTRIBUTE;
+                    return NON_EXISTENT_ATTRIBUTE;
+
+                case 2:
+                    return NON_EXISTENT_ATTRIBUTE;
+
+                default:
+                    throw e;
+            }
         }
     }
 
@@ -96,13 +122,20 @@ public abstract class JsonInfoReader {
         try {
 
             return data().get(attrName).getAsInt();
-
         } catch (NullPointerException e) {
-            String output = "\"".concat(attrName).concat("\" attribute not found");
 
-            System.err.println(output);
+            switch (Config.getExceptionHandleMode()) {
+                case 0:
+                    printErrorMessage(attrName);
 
-            return -1;
+                    return -1;
+
+                case 2:
+                    return -1;
+
+                default:
+                    throw e;
+            }
         }
     }
 
@@ -118,13 +151,20 @@ public abstract class JsonInfoReader {
         try {
 
             return data().get(attrName).getAsJsonArray();
-
         } catch (NullPointerException e) {
-            String output = "\"".concat(attrName).concat("\" not found");
 
-            System.err.println(output);
+            switch (Config.getExceptionHandleMode()) {
+                case 0:
+                    printErrorMessage(attrName);
 
-            return new JsonArray();
+                    return new JsonArray();
+
+                case 2:
+                    return new JsonArray();
+
+                default:
+                    throw e;
+            }
         }
     }
 
@@ -141,14 +181,33 @@ public abstract class JsonInfoReader {
         try {
 
             return data().get(attrName).getAsJsonObject();
-
         } catch (NullPointerException e) {
-            String output = "\"".concat(attrName).concat("\" attribute not found");
 
-            System.err.println(output);
+            switch (Config.getExceptionHandleMode()) {
+                case 0:
+                    printErrorMessage(attrName);
 
-            return new JsonObject();
+                    return new JsonObject();
+
+                case 2:
+                    return new JsonObject();
+
+                default:
+                    throw e;
+            }
         }
+    }
+
+    /**
+     * Print a message to the terminal when an attribute cannot be found in a JSON element.
+     *
+     * @param attrName the attribute that cannot be found.
+     * */
+
+    protected void printErrorMessage(String attrName) {
+        String output = "\"".concat(attrName).concat("\" attribute not found");
+
+        System.err.println(output);
     }
 
     @Override

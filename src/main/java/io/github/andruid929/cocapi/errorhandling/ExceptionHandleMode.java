@@ -1,9 +1,17 @@
 package io.github.andruid929.cocapi.errorhandling;
 
+/**
+ * Enum specifying modes of handling exceptions when they are caught.
+ *
+ * @since 1.1.0-beta.3
+ * @author Andrew Jones
+ * @version 1.0
+ * */
+
 public enum ExceptionHandleMode {
 
     /**
-     * Print error message to terminal, return default value.
+     * Handle exception, print error message to terminal, return default value.
      * */
 
     LOG(0),

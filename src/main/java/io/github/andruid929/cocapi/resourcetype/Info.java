@@ -3,7 +3,7 @@ package io.github.andruid929.cocapi.resourcetype;
 import io.github.andruid929.cocapi.Config;
 import io.github.andruid929.cocapi.annotation.ApiToken;
 import io.github.andruid929.cocapi.api.Constants;
-import io.github.andruid929.cocapi.errorhandling.ExceptionHandleMode;
+import io.github.andruid929.cocapi.api.InvalidTokenException;
 import io.github.andruid929.cocapi.exampleconfigs.InvalidConfigClassA;
 import io.github.andruid929.cocapi.exampleconfigs.InvalidConfigClassB;
 import io.github.andruid929.cocapi.exampleconfigs.ValidConfigClass;
@@ -12,7 +12,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -45,9 +44,7 @@ import java.net.URL;
  * the program will only take the first one it finds and stop there.
  * Field scanning is done from top to bottom.
  *
- * <p>Once you've declared this field, you're done with the configuration class.
- * The only thing left to do is to tell the program what your configuration file is.
- * <p>Call {@link #setConfigurationClass(Class)} and pass in your Java class.
+ * <p>Call {@link Config#setConfigurationClass(Class)} and pass in your Java class.
  * It will look something like {@code Info.setConfigurationClass(YourConfigClass.class);}.
  *
  * <p>With that done, you're all set to start making requests.
@@ -62,74 +59,11 @@ import java.net.URL;
 
 public class Info {
 
-    public static ExceptionHandleMode handleMode;
-
-    /**
-     * JSON token to be used for request validation.
-     */
-
-    protected static String API_TOKEN;
-
     /**
      * Utility classes cannot be instantiated.
      */
 
     protected Info() {
-    }
-
-    /**
-     * Set the configuration class for this program. This is where your API key resides and is very
-     * crucial to the function of this program. Read the documentation of {@link Info this class}
-     * for details on how to properly set one up.
-     * <p>This method uses the Java reflection API to automatically scan the specified class for
-     * a public static String field annotated with {@link ApiToken}.
-     *
-     * @param configurationClass the class file of your configuration class.
-     * @return {@code true} if any public static String field annotated with {@code @ApiToken} is found.
-     * So make sure this method is your API token or errors follow.
-     * <p>{@code false} if the API token field is private, not static or doesn't exist entirely.
-     */
-
-    public static boolean setConfigurationClass(@NotNull Class<?> configurationClass) {
-        String configClassName = configurationClass.getName().concat(".java");
-
-        try {
-
-            for (Field field : configurationClass.getDeclaredFields()) {
-                if (field.isAnnotationPresent(ApiToken.class)) {
-
-                    API_TOKEN = (String) field.get(null);
-                    return true;
-                }
-
-            }
-
-            throw new NoSuchFieldException("No API token field found in " + configClassName);
-
-        } catch (IllegalAccessException e) {
-            if (Config.getExceptionHandleMode() != 2) {
-
-                System.err.println("API token in " + configClassName + " is not accessible, it's most likely private");
-            }
-
-            return false;
-
-        } catch (NoSuchFieldException e) {
-            if (Config.getExceptionHandleMode() != 2) {
-
-                System.err.println(e.getMessage());
-            }
-
-            return false;
-
-        } catch (NullPointerException e) {
-            if (Config.getExceptionHandleMode() != 2) {
-
-                System.err.println("Cannot find API token field in " + configClassName + ", make sure the field is static");
-            }
-
-            return false;
-        }
     }
 
     /**
@@ -147,15 +81,18 @@ public class Info {
     protected static HttpsURLConnection apiConnection(@NotNull String resourceUrl) throws IOException {
         final String END_POINT = Constants.BASE_URL + ValidateUrl.trimSlashes(resourceUrl);
 
+        final String API_TOKEN = Config.getApiToken();
+
         HttpsURLConnection connection;
+
         try {
             URL endPointUrl = new URI(END_POINT).toURL();
 
             connection = (HttpsURLConnection) endPointUrl.openConnection();
             connection.setRequestMethod("GET");
 
-            if (API_TOKEN == null) {
-                throw new NullPointerException("API token is null");
+            if (API_TOKEN.isEmpty()) {
+                throw new InvalidTokenException("API token is empty");
             }
 
             connection.setRequestProperty("Authorization", "Bearer " + API_TOKEN);
@@ -172,7 +109,7 @@ public class Info {
 
             throw new RuntimeException(e);
 
-        } catch (NullPointerException e) {
+        } catch (InvalidTokenException e) {
             System.err.println(e.getMessage() + ", is configuration class set?");
 
             throw new RuntimeException(e);

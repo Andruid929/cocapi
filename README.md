@@ -49,7 +49,7 @@ Here's what the field should look like
 ### Important things to note
 
 - Any issues with the field annotated as the API token will come back to bite you,
-so make sure the field is not empty, null and accurately returns your API token.
+so make sure the field is not empty, null and accurately reflects your API token.
 
 - If you have multiple fields annotated with ```@ApiToken```, the program will only take the first one it finds and stop
 there.
