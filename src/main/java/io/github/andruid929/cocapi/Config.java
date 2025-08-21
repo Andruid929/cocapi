@@ -109,6 +109,12 @@ public final class Config {
         return mode.getMode();
     }
 
+    /**
+     * Get the API token.
+     *
+     * @return API token or empty String if the value is null.
+     * */
+
     public static @NotNull String getApiToken() {
         if (apiToken == null) {
             return "";
