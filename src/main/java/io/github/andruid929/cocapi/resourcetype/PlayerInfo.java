@@ -1,5 +1,7 @@
 package io.github.andruid929.cocapi.resourcetype;
 
+import io.github.andruid929.cocapi.Config;
+import io.github.andruid929.cocapi.errorhandling.ExceptionHandleMode;
 import io.github.andruid929.cocapi.util.JsonCollector;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -42,11 +44,12 @@ public final class PlayerInfo extends Info {
      * @return player info as JSON String or {@link #FAILED_DATA NULL_DATA}
      * if anything goes wrong while getting the response.
      * @throws IllegalArgumentException if the {@code playerId} is not 9 characters long.
+     * @throws IOException if an I/O error occurs.
      */
 
     @NotNull
     @Contract(pure = true)
-    public static String getPlayerInfo(@NotNull String playerId) {
+    public static String getPlayerInfo(@NotNull String playerId) throws IOException {
         if (playerId.isBlank() || (playerId.length() != 9)) {
 
             throw new IllegalArgumentException("Invalid Player ID");
@@ -65,19 +68,39 @@ public final class PlayerInfo extends Info {
             return JsonCollector.getJsonString(connection.getInputStream());
 
         } catch (RuntimeException e) {
-            System.err.println(e.getCause().getMessage());
-            return FAILED_DATA;
 
-        } catch (IOException e) {
-            System.err.println("Connection to API encountered an error:");
-            System.err.println(e.getMessage());
+            switch (Config.getExceptionHandleMode()) {
+                case 0:
+                    System.err.println(e.getCause().getMessage());
 
-            if ((connection != null)) {
-                System.err.println(JsonCollector.getJsonString(connection.getErrorStream()));
+                    return FAILED_DATA;
+
+                case 2:
+                    return FAILED_DATA;
+
+                default:
+                    throw e;
             }
+        } catch (IOException e) {
 
-            return FAILED_DATA;
+            switch (Config.getExceptionHandleMode()) {
+                case 0:
+                    System.err.println("Connection to API encountered an error:");
+                    System.err.println(e.getMessage());
 
+                    if (connection != null) {
+                        System.err.println(JsonCollector.getJsonString(connection.getErrorStream()));
+                    }
+
+                    return FAILED_DATA;
+
+                case 2:
+                    return FAILED_DATA;
+
+                default:
+                    throw e;
+
+            }
         } finally {
             if (connection != null) {
 

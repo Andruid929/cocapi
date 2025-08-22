@@ -1,5 +1,6 @@
 package io.github.andruid929.cocapi.resourcetype;
 
+import io.github.andruid929.cocapi.Config;
 import io.github.andruid929.cocapi.annotation.ApiToken;
 import io.github.andruid929.cocapi.exampleconfigs.InvalidConfigClassA;
 import io.github.andruid929.cocapi.exampleconfigs.InvalidConfigClassB;
@@ -29,7 +30,7 @@ public class InfoTest {
 
     @Test
     void validClassConfig() {
-        assertTrue(Info.setConfigurationClass(ValidConfigClass.class));
+        assertTrue(Config.setConfigurationClass(ValidConfigClass.class));
     }
 
     /**
@@ -43,7 +44,7 @@ public class InfoTest {
 
     @Test
     void invalidClassConfigA() {
-        assertFalse(Info.setConfigurationClass(InvalidConfigClassA.class));
+        assertFalse(Config.setConfigurationClass(InvalidConfigClassA.class));
     }
 
     /**
@@ -58,6 +59,6 @@ public class InfoTest {
 
     @Test
     void invalidClassConfigB() {
-        assertFalse(Info.setConfigurationClass(InvalidConfigClassB.class));
+        assertFalse(Config.setConfigurationClass(InvalidConfigClassB.class));
     }
 }

@@ -1,5 +1,6 @@
 package io.github.andruid929.cocapi.util;
 
+import io.github.andruid929.cocapi.Config;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -9,7 +10,7 @@ import java.io.*;
  * from different sources.
  *
  * @author Andrew Jones
- * @version 1.0
+ * @version 1.1
  * @since 1.1.0-alpha.1
  */
 
@@ -52,7 +53,10 @@ public final class JsonCollector {
 
     public static @NotNull String getJsonString(InputStream inputStream) {
         if (inputStream == null) {
-            System.err.println("Null input stream, check your endpoint configuration");
+
+            if (Config.getExceptionHandleMode() != 2) {
+                System.err.println("Null input stream, check your endpoint configuration");
+            }
 
             return NULL_STREAM;
         }
@@ -65,13 +69,25 @@ public final class JsonCollector {
             String line;
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line);
+
+            }
+        } catch (IOException e) {
+
+            switch (Config.getExceptionHandleMode()) {
+                case 0:
+                    System.err.println("Encountered error reading stream data:");
+                    System.err.println(e.getMessage());
+
+                    return ERROR_READING_DATA;
+
+                case 2:
+                    return ERROR_READING_DATA;
+
+                default:
+                    throw new RuntimeException(e);
             }
 
-        } catch (IOException e) {
-            System.err.println("Encountered error reading stream data:");
-            System.err.println(e.getMessage());
 
-            return ERROR_READING_DATA;
         }
 
         return stringBuilder.toString();
@@ -89,7 +105,10 @@ public final class JsonCollector {
 
     public static @NotNull String getJsonString(@NotNull File file) {
         if (!file.exists()) {
-            System.err.println("\"".concat(file.getName()).concat("\"") + " could not be found.");
+
+            if (Config.getExceptionHandleMode() != 2) {
+                System.err.println("\"".concat(file.getName()).concat("\"") + " could not be found.");
+            }
 
             return FILE_NOT_FOUND;
         }
@@ -102,13 +121,23 @@ public final class JsonCollector {
             String line;
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line);
+
             }
-
         } catch (IOException e) {
-            System.err.println("Encountered error reading from file:");
-            System.err.println(e.getMessage());
 
-            return ERROR_READING_DATA;
+            switch (Config.getExceptionHandleMode()) {
+                case 0:
+                    System.err.println("Encountered error reading from file:");
+                    System.err.println(e.getMessage());
+
+                    return ERROR_READING_DATA;
+
+                case 2:
+                    throw new RuntimeException(e);
+
+                default:
+                    return ERROR_READING_DATA;
+            }
         }
 
         return stringBuilder.toString();
