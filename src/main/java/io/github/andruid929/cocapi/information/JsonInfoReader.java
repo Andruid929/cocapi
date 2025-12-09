@@ -89,7 +89,7 @@ public abstract class JsonInfoReader {
      * if the attribute does not exist.
      */
 
-    protected String getStringIfPresent(String attrName) {
+    protected final String getStringIfPresent(String attrName) {
         try {
 
             return data().get(attrName).getAsString();
@@ -118,7 +118,7 @@ public abstract class JsonInfoReader {
      * if the attribute does not exist.
      */
 
-    protected int getIntIfPresent(String attrName) {
+    protected final int getIntIfPresent(String attrName) {
         try {
 
             return data().get(attrName).getAsInt();
@@ -147,7 +147,7 @@ public abstract class JsonInfoReader {
      * an empty {@link JsonArray} if the attribute does not exist.
      */
 
-    protected JsonArray getJsonArrayIfPresent(String attrName) {
+    protected final JsonArray getJsonArrayIfPresent(String attrName) {
         try {
 
             return data().get(attrName).getAsJsonArray();
@@ -177,7 +177,7 @@ public abstract class JsonInfoReader {
      * an empty {@link JsonObject} if the attribute does not exist.
      */
 
-    protected JsonObject getJsonObjectIfPresent(String attrName) {
+    protected final JsonObject getJsonObjectIfPresent(String attrName) {
         try {
 
             return data().get(attrName).getAsJsonObject();

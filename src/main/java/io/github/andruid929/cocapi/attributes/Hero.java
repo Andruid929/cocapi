@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
  * @since 1.1.0-beta.3
  */
 
-public class Hero extends JsonInfoReader {
+public final class Hero extends JsonInfoReader {
 
     /**
      * The hero as an object.
